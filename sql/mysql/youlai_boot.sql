@@ -506,7 +506,7 @@ INSERT INTO `sys_config` VALUES (1, '시스템 제한 QPS', 'IP_QPS_THRESHOLD_LI
 DROP TABLE IF EXISTS `sys_notice`;
 CREATE TABLE `sys_notice` (
                               `id` bigint NOT NULL AUTO_INCREMENT,
-                              `title` varchar(50) COMMENT '알림 제목',
+                              `title` varchar(500) COMMENT '알림 제목',
                               `content` text COMMENT '알림 내용',
                               `type` tinyint NOT NULL COMMENT '알림 유형(관련 사전 코드: notice_type)',
                               `level` varchar(5) NOT NULL COMMENT '알림 등급(사전 코드: notice_level)',
