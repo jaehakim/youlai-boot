@@ -21,29 +21,30 @@ SET FOREIGN_KEY_CHECKS = 0; # 외래 키 검사 닫기, 가져오기 속도 향�
 -- Table structure for sys_dept
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
-CREATE TABLE `sys_dept`  (
-                             `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-                             `name` varchar(100) NOT NULL COMMENT '部门名称',
-                             `code` varchar(100) NOT NULL COMMENT '部门编号',
-                             `parent_id` bigint DEFAULT 0 COMMENT '父节点id',
-                             `tree_path` varchar(255) NOT NULL COMMENT '父节点id路径',
-                             `sort` smallint DEFAULT 0 COMMENT '显示顺序',
-                             `status` tinyint DEFAULT 1 COMMENT '状态(1-正常 0-禁用)',
-                             `create_by` bigint NULL COMMENT '创建人ID',
-                             `create_time` datetime NULL COMMENT '创建时间',
-                             `update_by` bigint NULL COMMENT '修改人ID',
-                             `update_time` datetime NULL COMMENT '更新时间',
-                             `is_deleted` tinyint DEFAULT 0 COMMENT '逻辑删除标识(1-已删除 0-未删除)',
-                             PRIMARY KEY (`id`) USING BTREE,
-                             UNIQUE INDEX `uk_code`(`code` ASC) USING BTREE COMMENT '部门编号唯一索引'
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COMMENT = '部门表';
+
+CREATE TABLE sys_dept  (
+id bigint NOT NULL AUTO_INCREMENT COMMENT '주건',
+name varchar(100) NOT NULL COMMENT '부문명칭',
+code varchar(100) NOT NULL COMMENT '부문편호',
+parent_id bigint DEFAULT 0 COMMENT '부절점id',
+tree_path varchar(255) NOT NULL COMMENT '부절점id로경',
+sort smallint DEFAULT 0 COMMENT '현시순서',
+status tinyint DEFAULT 1 COMMENT '상태(1-정상 0-금용)',
+create_by bigint NULL COMMENT '창건인ID',
+create_time datetime NULL COMMENT '창건시간',
+update_by bigint NULL COMMENT '수정인ID',
+update_time datetime NULL COMMENT '갱신시간',
+is_deleted tinyint DEFAULT 0 COMMENT '논리삭제표식(1-이삭제 0-미삭제)',
+PRIMARY KEY (id) USING BTREE,
+UNIQUE INDEX uk_code(code ASC) USING BTREE COMMENT '부문편호유일색인'
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COMMENT = '부문표';
 
 -- ----------------------------
 -- Records of sys_dept
 -- ----------------------------
-INSERT INTO `sys_dept` VALUES (1, '有来技术', 'YOULAI', 0, '0', 1, 1, 1, NULL, 1, now(), 0);
-INSERT INTO `sys_dept` VALUES (2, '研发部门', 'RD001', 1, '0,1', 1, 1, 2, NULL, 2, now(), 0);
-INSERT INTO `sys_dept` VALUES (3, '测试部门', 'QA001', 1, '0,1', 1, 1, 2, NULL, 2, now(), 0);
+INSERT INTO sys_dept VALUES (1, '유래기술', 'YOULAI', 0, '0', 1, 1, 1, NULL, 1, now(), 0);
+INSERT INTO sys_dept VALUES (2, '연발부문', 'RD001', 1, '0,1', 1, 1, 2, NULL, 2, now(), 0);
+INSERT INTO sys_dept VALUES (3, '측시부문', 'QA001', 1, '0,1', 1, 1, 2, NULL, 2, now(), 0);
 
 -- ----------------------------
 -- Table structure for sys_dict
