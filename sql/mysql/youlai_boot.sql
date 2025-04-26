@@ -4,18 +4,18 @@
 
 
 -- ----------------------------
--- 1. 创建数据库
+-- 1. 데이터베이스 생성
 -- ----------------------------
 CREATE DATABASE IF NOT EXISTS youlai_boot CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci;
 
 
 -- ----------------------------
--- 2. 创建表 && 数据初始化
+-- 2. 테이블 생성 && 데이터 초기화
 -- ----------------------------
 use youlai_boot;
 
-SET NAMES utf8mb4;  # 设置字符集
-SET FOREIGN_KEY_CHECKS = 0; # 关闭外键检查，加快导入速度
+SET NAMES utf8mb4;  # 문자 집합 설정
+SET FOREIGN_KEY_CHECKS = 0; # 외래 키 검사 닫기, 가져오기 속도 향상
 
 -- ----------------------------
 -- Table structure for sys_dept
