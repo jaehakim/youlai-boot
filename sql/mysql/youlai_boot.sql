@@ -1,5 +1,5 @@
 
-# YouLai_Boot 数据库(MySQL 5.7 ~ MySQL 8.x)
+# YouLai_Boot 데이터베이스(MySQL 5.7 ~ MySQL 8.x)
 # Copyright (c) 2021-present, youlai.tech
 
 
@@ -47,92 +47,93 @@ INSERT INTO sys_dept VALUES (2, '연발부문', 'RD001', 1, '0,1', 1, 1, 2, NULL
 INSERT INTO sys_dept VALUES (3, '측시부문', 'QA001', 1, '0,1', 1, 1, 2, NULL, 2, now(), 0);
 
 -- ----------------------------
+
 -- Table structure for sys_dict
--- ----------------------------
-DROP TABLE IF EXISTS `sys_dict`;
-CREATE TABLE `sys_dict` (
-                            `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键 ',
-                            `dict_code` varchar(50) COMMENT '类型编码',
-                            `name` varchar(50) COMMENT '类型名称',
-                            `status` tinyint(1) DEFAULT '0' COMMENT '状态(0:正常;1:禁用)',
-                            `remark` varchar(255) COMMENT '备注',
-                            `create_time` datetime COMMENT '创建时间',
-                            `create_by` bigint COMMENT '创建人ID',
-                            `update_time` datetime COMMENT '更新时间',
-                            `update_by` bigint COMMENT '修改人ID',
-                            `is_deleted` tinyint DEFAULT '0' COMMENT '是否删除(1-删除，0-未删除)',
-                            PRIMARY KEY (`id`) USING BTREE,
-                            KEY `idx_dict_code` (`dict_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='字典表';
--- ----------------------------
+
+DROP TABLE IF EXISTS sys_dict;
+CREATE TABLE sys_dict (
+id bigint NOT NULL AUTO_INCREMENT COMMENT '주키 ',
+dict_code varchar(50) COMMENT '유형 코드',
+name varchar(50) COMMENT '유형 이름',
+status tinyint(1) DEFAULT '0' COMMENT '상태(0:정상;1:비활성화)',
+remark varchar(255) COMMENT '비고',
+create_time datetime COMMENT '생성 시간',
+create_by bigint COMMENT '생성자 ID',
+update_time datetime COMMENT '갱신 시간',
+update_by bigint COMMENT '수정자 ID',
+is_deleted tinyint DEFAULT '0' COMMENT '삭제 여부(1-삭제됨, 0-삭제되지 않음)',
+PRIMARY KEY (id) USING BTREE,
+KEY idx_dict_code (dict_code)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='사전 테이블';
+
 -- Records of sys_dict
--- ----------------------------
-INSERT INTO `sys_dict` VALUES (1, 'gender', '性别', 1, NULL, now() , 1,now(), 1,0);
-INSERT INTO `sys_dict` VALUES (2, 'notice_type', '通知类型', 1, NULL, now(), 1,now(), 1,0);
-INSERT INTO `sys_dict` VALUES (3, 'notice_level', '通知级别', 1, NULL, now(), 1,now(), 1,0);
+
+INSERT INTO sys_dict VALUES (1, 'gender', '성별', 1, NULL, now() , 1,now(), 1,0);
+INSERT INTO sys_dict VALUES (2, 'notice_type', '통지 유형', 1, NULL, now(), 1,now(), 1,0);
+INSERT INTO sys_dict VALUES (3, 'notice_level', '통지 레벨', 1, NULL, now(), 1,now(), 1,0);
 
 
 -- ----------------------------
 -- Table structure for sys_dict_item
--- ----------------------------
-DROP TABLE IF EXISTS `sys_dict_item`;
-CREATE TABLE `sys_dict_item` (
-                                 `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-                                 `dict_code` varchar(50) COMMENT '关联字典编码，与sys_dict表中的dict_code对应',
-                                 `value` varchar(50) COMMENT '字典项值',
-                                 `label` varchar(100) COMMENT '字典项标签',
-                                 `tag_type` varchar(50) COMMENT '标签类型，用于前端样式展示（如success、warning等）',
-                                 `status` tinyint DEFAULT '0' COMMENT '状态（1-正常，0-禁用）',
-                                 `sort` int DEFAULT '0' COMMENT '排序',
-                                 `remark` varchar(255) COMMENT '备注',
-                                 `create_time` datetime COMMENT '创建时间',
-                                 `create_by` bigint COMMENT '创建人ID',
-                                 `update_time` datetime COMMENT '更新时间',
-                                 `update_by` bigint COMMENT '修改人ID',
-                                 PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='字典项表';
+
+DROP TABLE IF EXISTS sys_dict_item;
+CREATE TABLE sys_dict_item (
+id bigint NOT NULL AUTO_INCREMENT COMMENT '주키',
+dict_code varchar(50) COMMENT '관련 사전 코드, sys_dict 테이블의 dict_code와 대응',
+value varchar(50) COMMENT '사전 항목 값',
+label varchar(100) COMMENT '사전 항목 라벨',
+tag_type varchar(50) COMMENT '태그 유형, 프론트엔드 스타일 표시용(success, warning 등)',
+status tinyint DEFAULT '0' COMMENT '상태(1-정상, 0-비활성화)',
+sort int DEFAULT '0' COMMENT '정렬',
+remark varchar(255) COMMENT '비고',
+create_time datetime COMMENT '생성 시간',
+create_by bigint COMMENT '생성자 ID',
+update_time datetime COMMENT '갱신 시간',
+update_by bigint COMMENT '수정자 ID',
+PRIMARY KEY (id) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='사전 항목 테이블';
 
 -- ----------------------------
--- Records of sys_dict_item
--- ----------------------------
-INSERT INTO `sys_dict_item` VALUES (1, 'gender', '1', '男', 'primary', 1, 1, NULL, now(), 1,now(),1);
-INSERT INTO `sys_dict_item` VALUES (2, 'gender', '2', '女', 'danger', 1, 2, NULL, now(), 1,now(),1);
-INSERT INTO `sys_dict_item` VALUES (3, 'gender', '0', '保密', 'info', 1, 3, NULL, now(), 1,now(),1);
-INSERT INTO `sys_dict_item` VALUES (4, 'notice_type', '1', '系统升级', 'success', 1, 1, '', now(), 1,now(),1);
-INSERT INTO `sys_dict_item` VALUES (5, 'notice_type', '2', '系统维护', 'primary', 1, 2, '', now(), 1,now(),1);
-INSERT INTO `sys_dict_item` VALUES (6, 'notice_type', '3', '安全警告', 'danger', 1, 3, '', now(), 1,now(),1);
-INSERT INTO `sys_dict_item` VALUES (7, 'notice_type', '4', '假期通知', 'success', 1, 4, '', now(), 1,now(),1);
-INSERT INTO `sys_dict_item` VALUES (8, 'notice_type', '5', '公司新闻', 'primary', 1, 5, '', now(), 1,now(),1);
-INSERT INTO `sys_dict_item` VALUES (9, 'notice_type', '99', '其他', 'info', 1, 99, '', now(), 1,now(),1);
-INSERT INTO `sys_dict_item` VALUES (10, 'notice_level', 'L', '低', 'info', 1, 1, '', now(), 1,now(),1);
-INSERT INTO `sys_dict_item` VALUES (11, 'notice_level', 'M', '中', 'warning', 1, 2, '', now(), 1,now(),1);
-INSERT INTO `sys_dict_item` VALUES (12, 'notice_level', 'H', '高', 'danger', 1, 3, '', now(), 1,now(),1);
+-- - Records of sys_dict_item
+
+INSERT INTO sys_dict_item VALUES (1, 'gender', '1', '남', 'primary', 1, 1, NULL, now(), 1,now(),1);
+INSERT INTO sys_dict_item VALUES (2, 'gender', '2', '여', 'danger', 1, 2, NULL, now(), 1,now(),1);
+INSERT INTO sys_dict_item VALUES (3, 'gender', '0', '비공개', 'info', 1, 3, NULL, now(), 1,now(),1);
+INSERT INTO sys_dict_item VALUES (4, 'notice_type', '1', '시스템 업그레이드', 'success', 1, 1, '', now(), 1,now(),1);
+INSERT INTO sys_dict_item VALUES (5, 'notice_type', '2', '시스템 유지보수', 'primary', 1, 2, '', now(), 1,now(),1);
+INSERT INTO sys_dict_item VALUES (6, 'notice_type', '3', '보안 경고', 'danger', 1, 3, '', now(), 1,now(),1);
+INSERT INTO sys_dict_item VALUES (7, 'notice_type', '4', '휴일 통지', 'success', 1, 4, '', now(), 1,now(),1);
+INSERT INTO sys_dict_item VALUES (8, 'notice_type', '5', '회사 뉴스', 'primary', 1, 5, '', now(), 1,now(),1);
+INSERT INTO sys_dict_item VALUES (9, 'notice_type', '99', '기타', 'info', 1, 99, '', now(), 1,now(),1);
+INSERT INTO sys_dict_item VALUES (10, 'notice_level', 'L', '낮음', 'info', 1, 1, '', now(), 1,now(),1);
+INSERT INTO sys_dict_item VALUES (11, 'notice_level', 'M', '중간', 'warning', 1, 2, '', now(), 1,now(),1);
+INSERT INTO sys_dict_item VALUES (12, 'notice_level', 'H', '높음', 'danger', 1, 3, '', now(), 1,now(),1);
 
 -- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
-DROP TABLE IF EXISTS `sys_menu`;
-CREATE TABLE `sys_menu`  (
-                             `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
-                             `parent_id` bigint NOT NULL COMMENT '父菜单ID',
-                             `tree_path` varchar(255) COMMENT '父节点ID路径',
-                             `name` varchar(64) NOT NULL COMMENT '菜单名称',
-                             `type` tinyint NOT NULL COMMENT '菜单类型（1-菜单 2-目录 3-外链 4-按钮）',
-                             `route_name` varchar(255) COMMENT '路由名称（Vue Router 中用于命名路由）',
-                             `route_path` varchar(128) COMMENT '路由路径（Vue Router 中定义的 URL 路径）',
-                             `component` varchar(128) COMMENT '组件路径（组件页面完整路径，相对于 src/views/，缺省后缀 .vue）',
-                             `perm` varchar(128) COMMENT '【按钮】权限标识',
-                             `always_show` tinyint DEFAULT 0 COMMENT '【目录】只有一个子路由是否始终显示（1-是 0-否）',
-                             `keep_alive` tinyint DEFAULT 0 COMMENT '【菜单】是否开启页面缓存（1-是 0-否）',
-                             `visible` tinyint(1) DEFAULT 1 COMMENT '显示状态（1-显示 0-隐藏）',
-                             `sort` int DEFAULT 0 COMMENT '排序',
-                             `icon` varchar(64) COMMENT '菜单图标',
-                             `redirect` varchar(128) COMMENT '跳转路径',
-                             `create_time` datetime NULL COMMENT '创建时间',
-                             `update_time` datetime NULL COMMENT '更新时间',
-                             `params` varchar(255) NULL COMMENT '路由参数',
-                             PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COMMENT = '菜单管理';
+DROP TABLE IF EXISTS sys_menu;
+CREATE TABLE sys_menu  (
+id bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
+parent_id bigint NOT NULL COMMENT '부모 메뉴 ID',
+tree_path varchar(255) COMMENT '부모 노드 ID 경로',
+name varchar(64) NOT NULL COMMENT '메뉴 이름',
+type tinyint NOT NULL COMMENT '메뉴 유형(1-메뉴 2-디렉토리 3-외부 링크 4-버튼)',
+route_name varchar(255) COMMENT '라우트 이름(Vue Router에서 라우트 이름 지정에 사용)',
+route_path varchar(128) COMMENT '라우트 경로(Vue Router에서 정의된 URL 경로)',
+component varchar(128) COMMENT '컴포넌트 경로(컴포넌트 페이지 전체 경로, src/views/ 기준, .vue 접미사 생략)',
+perm varchar(128) COMMENT '[버튼] 권한 식별자',
+always_show tinyint DEFAULT 0 COMMENT '[디렉토리] 하위 라우트가 하나일 때도 항상 표시할지 여부(1-예 0-아니오)',
+keep_alive tinyint DEFAULT 0 COMMENT '[메뉴] 페이지 캐시 활성화 여부(1-예 0-아니오)',
+visible tinyint(1) DEFAULT 1 COMMENT '표시 상태(1-표시 0-숨김)',
+sort int DEFAULT 0 COMMENT '정렬',
+icon varchar(64) COMMENT '메뉴 아이콘',
+redirect varchar(128) COMMENT '리다이렉트 경로',
+create_time datetime NULL COMMENT '생성 시간',
+update_time datetime NULL COMMENT '갱신 시간',
+params varchar(255) NULL COMMENT '라우트 매개변수',
+PRIMARY KEY (id) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COMMENT = '메뉴 관리';
 
 -- ----------------------------
 -- Records of sys_menu
